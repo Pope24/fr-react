@@ -1,0 +1,19 @@
+tr {
+  height: 40px;
+}
+td,
+th {
+  line-height: 40px;
+}
+.update-btn {
+  cursor: pointer;
+}
+.update-btn:hover {
+  color: royalblue;
+}
+.trash-can {
+  cursor: pointer;
+}
+.trash-can:hover {
+  color: red;
+}
