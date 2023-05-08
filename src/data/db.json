@@ -1,0 +1,267 @@
+{
+"facilities": [
+    {
+      "id": 1,
+      "img": "https://furamavietnam.com/wp-content/uploads/2018/03/Vietnam_Danang_Furama_Ocean-Suite-Feature-370x239.jpg",
+      "nameFacility": "OCEAN SUITE",
+      "typeRoom": 3,
+      "roomSize": "85.8",
+      "price": "300",
+      "maxPerson": "6",
+      "roomStandard": null,
+      "floor": null,
+      "poolArea": null,
+      "description": null,
+      "freeService": 1
+    },
+    {
+      "nameFacility": "OCEAN STUDIO SUITE",
+      "typeRoom": "3",
+      "roomSize": "40.1",
+      "img": "https://furamavietnam.com/wp-content/uploads/2018/03/Vietnam_Danang_Furama_Ocean-Studio-Suite-F-370x239.jpg",
+      "price": "200",
+      "roomStandard": "Vip",
+      "floor": "12",
+      "poolArea": "40",
+      "description": null,
+      "freeService": 2,
+      "id": 2
+    },
+    {
+      "id": 3,
+      "img": "https://furamavietnam.com/wp-content/uploads/2018/03/Furama_Ocean_Deluxe-2-450x291.jpg",
+      "nameFacility": "OCEAN DELUXE",
+      "typeRoom": 3,
+      "roomSize": "43.7",
+      "price": "220",
+      "maxPerson": "4",
+      "roomStandard": null,
+      "floor": null,
+      "poolArea": null,
+      "description": null,
+      "freeService": 3
+    },
+    {
+      "id": 4,
+      "img": "https://furamavietnam.com/wp-content/uploads/2018/03/Vietnam_Danang_Furama_Lagoon-Superior-twin-bed-F-370x239.jpg",
+      "nameFacility": "LAGOON SUPERIOR",
+      "typeRoom": 3,
+      "roomSize": "40.1",
+      "price": "220",
+      "maxPerson": "4",
+      "roomStandard": null,
+      "floor": null,
+      "poolArea": null,
+      "description": null,
+      "freeService": 2
+    },
+    {
+      "id": 5,
+      "img": "https://furamavietnam.com/wp-content/uploads/2018/03/Vietnam_Danang_Furama_Garden-Superior-TwinBed-1-F-370x239.jpg",
+      "nameFacility": "GARDEN SUPERIOR",
+      "typeRoom": 3,
+      "roomSize": "40.1",
+      "price": "220",
+      "maxPerson": "4",
+      "roomStandard": null,
+      "floor": null,
+      "poolArea": null,
+      "description": null,
+      "freeService": 3
+    },
+    {
+      "id": 6,
+      "img": "https://furamavietnam.com/wp-content/uploads/2018/03/Furama_Garden-Deluxe-5-450x291.jpg",
+      "nameFacility": "GARDEN DELUXE",
+      "typeRoom": 3,
+      "roomSize": "40.1",
+      "price": "220",
+      "maxPerson": "4",
+      "roomStandard": null,
+      "floor": null,
+      "poolArea": null,
+      "description": null,
+      "freeService": 1
+    },
+    {
+      "id": 7,
+      "img": "https://furamavietnam.com/wp-content/uploads/2018/03/Presidential-Suite-F-370x239.jpg",
+      "nameFacility": "PRESIDENTIAL SUITE",
+      "typeRoom": 3,
+      "roomSize": "130",
+      "price": "500",
+      "maxPerson": "10",
+      "roomStandard": null,
+      "floor": null,
+      "poolArea": null,
+      "description": null,
+      "freeService": 1
+    },
+    {
+      "id": 8,
+      "img": "https://furamavietnam.com/wp-content/uploads/2018/08/Vietnam_Danang_Furama_Villas_Beach_Pool_Villas-_Exterior-1-F-370x239.jpg",
+      "nameFacility": "BEACH FRONT VILLAS",
+      "typeRoom": 1,
+      "roomSize": "900",
+      "price": "1500",
+      "maxPerson": "20",
+      "roomStandard": "Vip",
+      "floor": 4,
+      "poolArea": 40,
+      "description": "Luxurious",
+      "freeService": null
+    },
+    {
+      "id": 9,
+      "img": "https://furamavietnam.com/wp-content/uploads/2018/08/Vietnam_Danang_Furama_Villas_Pool_Villas-F-370x239.jpg",
+      "nameFacility": "POOL VILLAS",
+      "typeRoom": 1,
+      "roomSize": "320",
+      "price": "800",
+      "maxPerson": "13",
+      "roomStandard": "Normal",
+      "floor": 3,
+      "poolArea": 30,
+      "description": "Luxurious",
+      "freeService": null
+    }
+  ],
+  "freeService": [
+    {
+      "id": 1,
+      "name": "Airport Shuttle"
+    },
+    {
+      "id": 2,
+      "name": "Breakfast"
+    },
+    {
+      "id": 3,
+      "name": "Laundry service"
+    }
+  ],
+  "customer": [
+    {
+      "id": 2,
+      "name": "Nguyễn Văn Minh",
+      "dateOfBirth": "1998-06-10",
+      "gender": "Khác",
+      "identity": "201865361",
+      "phoneNumber": "0905551127",
+      "email": "vanminhokay1@gmail.com",
+      "typeCustomer": 2,
+      "address": "Nghệ An"
+    },
+    {
+      "id": 4,
+      "name": "Nguyễn Minh Lãnh",
+      "dateOfBirth": "1990-11-01",
+      "gender": "Khác",
+      "identity": "201865374",
+      "phoneNumber": "0905558789",
+      "email": "minhlanh111@gmail.com",
+      "typeCustomer": 3,
+      "address": "Quảng Nam"
+    },
+    {
+      "name": "Nguyễn Lê Văn Khải",
+      "dateOfBirth": "1998-03-26",
+      "gender": "Nam",
+      "identity": "201865381",
+      "phoneNumber": "0905559541",
+      "email": "vankhai14@gmail.com",
+      "address": "Đà Nẵng",
+      "typeCustomer": 1,
+      "id": 5
+    },
+    {
+      "name": "Nguyễn Hà Anh Quốc",
+      "dateOfBirth": "1998-09-16",
+      "gender": "Nam",
+      "identity": "201865391",
+      "phoneNumber": "0905553012",
+      "email": "anhquocDN@gmail.com",
+      "address": "Đà Nẵng",
+      "typeCustomer": 4,
+      "id": 6
+    },
+    {
+      "name": "Phan Văn Đồng",
+      "dateOfBirth": "1997-01-02",
+      "gender": "Nam",
+      "identity": "201869874",
+      "phoneNumber": "0905552346",
+      "email": "dongQTri74@gmail.com",
+      "address": "Quảng Trị",
+      "typeCustomer": 2,
+      "id": 7
+    },
+    {
+      "name": "Trần Trọng Nghĩa",
+      "dateOfBirth": "2004-12-18",
+      "gender": "Nam",
+      "identity": "201984512",
+      "phoneNumber": "0978489541",
+      "email": "trongnghia2k4@gmail.com",
+      "address": "Đà Nẵng",
+      "typeCustomer": 1,
+      "id": 8
+    }
+  ],
+  "typeCustomer": [
+    {
+      "id": 1,
+      "name": "Member"
+    },
+    {
+      "id": 2,
+      "name": "Silver"
+    },
+    {
+      "id": 3,
+      "name": "Gold"
+    },
+    {
+      "id": 4,
+      "name": "Platinium"
+    },
+    {
+      "id": 5,
+      "name": "Diamond"
+    }
+  ],
+  "typeRoom": [
+    {
+      "id": 1,
+      "name": "Villa"
+    },
+    {
+      "id": 2,
+      "name": "House"
+    },
+    {
+      "id": 3,
+      "name": "Room"
+    }
+  ],
+  "contract": [
+    {
+      "id": 2,
+      "idContract": "CO-0002",
+      "customerId": 2,
+      "facilityId": 1,
+      "dayIn": "09/12/2023",
+      "dayOut": "14/12/2023",
+      "deposits": "900"
+    },
+    {
+      "idContract": "CO-0003",
+      "customerId": 5,
+      "facilityId": 6,
+      "dayIn": "2023-04-12",
+      "dayOut": "2023-04-30",
+      "deposits": "20000",
+      "id": 3
+    }
+  ]
+}

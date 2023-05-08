@@ -1,6 +1,7 @@
 import { faMagnifyingGlass, faPhone } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 function Header() {
   return (
     <>
@@ -17,22 +18,22 @@ function Header() {
             <div className="menu d-flex align-items-center">
               <ul className="d-flex text-uppercase">
                 <li>
-                  <a href="/home">Trang chủ</a>
+                  <Link to="/facilities">Trang chủ</Link>
                 </li>
                 <li>
-                  <a href="/service/room">Phòng resort</a>
+                  <Link to="/facilities">Dịch vụ</Link>
                 </li>
                 <li>
-                  <a href="/service/villa">Phòng villa</a>
+                  <Link to="/customer">Khách hàng</Link>
                 </li>
                 <li>
-                  <a href="/utility-service">Tiện ích</a>
+                  <Link to="/employee">Nhân viên</Link>
                 </li>
                 <li>
-                  <a href="/news">Tin tức</a>
+                  <Link to="/contract">Hợp đồng</Link>
                 </li>
                 <li>
-                  <a href="/contact">Liên hệ furama</a>
+                  <Link to="/contact">Liên hệ furama</Link>
                 </li>
               </ul>
             </div>
