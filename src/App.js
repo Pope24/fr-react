@@ -8,12 +8,16 @@ import ListCustomer from "./Components/Customer/ListCustomer";
 import FormCustomer from "./Components/Customer/FormCustomer";
 import FormService from "./Components/Service/FormService";
 import { Route, Routes } from "react-router-dom";
+import ListService from "./Components/Service/ListService";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/service" Component={Service} />
+        <Route path="/home" Component={Service} />
+        <Route path="/facilities" Component={ListService} />
+        <Route path="/add-facility" Component={FormService} />
+        <Route path="/update-facility/:id" Component={FormService} />
         <Route path="/customer" Component={ListCustomer} />
         <Route path="/customer/create" Component={FormCustomer} />
         <Route path="/customer/update/:id" Component={FormCustomer} />

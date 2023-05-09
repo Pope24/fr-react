@@ -18,16 +18,13 @@ function Header() {
             <div className="menu d-flex align-items-center">
               <ul className="d-flex text-uppercase">
                 <li>
-                  <Link to="/facilities">Trang chủ</Link>
+                  <Link to="/home">Trang chủ</Link>
                 </li>
                 <li>
                   <Link to="/facilities">Dịch vụ</Link>
                 </li>
                 <li>
                   <Link to="/customer">Khách hàng</Link>
-                </li>
-                <li>
-                  <Link to="/employee">Nhân viên</Link>
                 </li>
                 <li>
                   <Link to="/contract">Hợp đồng</Link>

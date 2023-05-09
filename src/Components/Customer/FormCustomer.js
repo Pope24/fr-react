@@ -4,17 +4,30 @@ import Header from "../Common/Header/Header";
 import "./FormCustomer.css";
 import { useEffect, useState } from "react";
 import { findByIdCustomer } from "../../services/customerService";
-import { Field, Form, Formik } from "formik";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { GridLoader } from "react-spinners";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import Skeleton from "react-loading-skeleton";
+import { HashLoader } from "react-spinners";
+import * as Yup from "yup";
 function FormCustomer() {
   const { id } = useParams();
   const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(false);
+  const REGEX = {
+    NAME: /^([A-Z][a-z]*(\s[A-Z][a-z]*)*)$/,
+    PHONE_NUMBER: /^(090|091|(84)+90|(84)+91)[0-9]{7}$/,
+    CMND: /^[0-9]{9}$|^[0-9]{12}$/,
+    EMAIL: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+  };
   useEffect(() => {
     const fetchApiCustomerById = async () => {
+      if (id == undefined) {
+        await setTimeout(() => {
+          setCustomer({});
+        }, 1500);
+        return;
+      }
       const result = await findByIdCustomer(id);
-      setTimeout(() => {
+      await setTimeout(() => {
         setCustomer(result);
       }, 1500);
     };
@@ -36,21 +49,37 @@ function FormCustomer() {
               <div className="col-12 col-lg-9 col-xl-7 d-flex justify-content-center">
                 <div
                   className="card card-registration"
-                  style={{ borderRadius: "15px", height: "100vh" }}
+                  style={{ borderRadius: "15px", height: "700px" }}
                 >
                   {customer == null ? (
-                    <Skeleton count={30} style={{ lineHeight: 0.4 }} />
+                    <>
+                      <Skeleton count={30} style={{ lineHeight: 0.4 }} />
+                      <h3 className="title mb-4 pb-2 pb-md-0 mb-md-5">
+                        Loading...
+                      </h3>
+                    </>
                   ) : (
                     <div className="card-body p-4 p-md-5">
                       <h3 className="title mb-4 pb-2 pb-md-0 mb-md-5">
                         Thêm mới khách hàng
                       </h3>
                       {loading ? (
-                        <GridLoader
-                          color="#003680"
-                          cssOverride={{ marginTop: 200 }}
-                          size={20}
-                        />
+                        <div className="d-flex justify-content-center align-items-center flex-column">
+                          <HashLoader
+                            color="#000"
+                            cssOverride={{
+                              marginTop: 200,
+                              textAlign: "center",
+                            }}
+                            size={100}
+                          />
+                          <h3
+                            className="title mb-4 pb-2 pb-md-0 mb-md-5"
+                            style={{ fontFamily: "Montserrat" }}
+                          >
+                            Loading...
+                          </h3>
+                        </div>
                       ) : (
                         <Formik
                           initialValues={{
@@ -64,6 +93,29 @@ function FormCustomer() {
                             id: customer.id || null,
                             typeCustomer: customer.typeCustomer || null,
                           }}
+                          validationSchema={Yup.object({
+                            name: Yup.string()
+                              .required("Tên bắt buộc nhập.")
+                              .matches(REGEX.NAME, "Chữ cái đầu phải viết hoa"),
+                            phoneNumber: Yup.string()
+                              .required("Số điện thoại bắt buộc nhập.")
+                              .matches(
+                                REGEX.PHONE_NUMBER,
+                                "SDT phải bắt đầu 090|091|(84)+90|(84)+91 và 10 chữ số."
+                              ),
+                            identity: Yup.string()
+                              .required("Số CMND bắt buộc phải nhập.")
+                              .matches(
+                                REGEX.CMND,
+                                "Số CMND bắt buộc 9 số hoặc 12 số."
+                              ),
+                            email: Yup.string()
+                              .required("Email bắt buộc nhập.")
+                              .matches(
+                                REGEX.EMAIL,
+                                "Email nhập không đúng định dạng."
+                              ),
+                          })}
                         >
                           <Form>
                             <div className="row">
@@ -74,24 +126,31 @@ function FormCustomer() {
                                     name="name"
                                     className="form-control form-control-lg fs-16"
                                   />
-                                  <label className="form-label">
-                                    Full name
-                                  </label>
+                                  <label className="form-label">Họ tên</label>
                                 </div>
+                                <ErrorMessage
+                                  component={"p"}
+                                  className="error"
+                                  name="name"
+                                />
                               </div>
                               <div className="col-md-6 mb-4">
                                 <div className="form-outline">
                                   <Field
-                                    type="number"
+                                    type="text"
                                     id="lastName"
-                                    disabled
-                                    name="id"
+                                    name="identity"
                                     required
                                     className="form-control form-control-lg fs-16"
                                   />
                                   <label className="form-label" for="lastName">
-                                    ID number
+                                    Số CMND
                                   </label>
+                                  <ErrorMessage
+                                    className="error"
+                                    component={"p"}
+                                    name="identity"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -110,12 +169,12 @@ function FormCustomer() {
                                     for="birthdayDate"
                                     className="form-label"
                                   >
-                                    Birthday
+                                    Ngày sinh
                                   </label>
                                 </div>
                               </div>
                               <div className="col-md-6 mb-4">
-                                <h6 className="mb-2 pb-1">Gender:</h6>
+                                <h6 className="mb-2 pb-1">Giới tính:</h6>
 
                                 <div className="form-check form-check-inline">
                                   <Field
@@ -129,7 +188,7 @@ function FormCustomer() {
                                     className="form-check-label"
                                     for="femaleGender"
                                   >
-                                    Female
+                                    Nữ
                                   </label>
                                 </div>
 
@@ -145,7 +204,7 @@ function FormCustomer() {
                                     className="form-check-label"
                                     for="maleGender"
                                   >
-                                    Male
+                                    Nam
                                   </label>
                                 </div>
 
@@ -161,7 +220,7 @@ function FormCustomer() {
                                     className="form-check-label"
                                     for="otherGender"
                                   >
-                                    Other
+                                    Khác
                                   </label>
                                 </div>
                               </div>
@@ -183,6 +242,11 @@ function FormCustomer() {
                                   >
                                     Email
                                   </label>
+                                  <ErrorMessage
+                                    className="error"
+                                    component={"p"}
+                                    name="email"
+                                  />
                                 </div>
                               </div>
                               <div className="col-md-6 mb-4 pb-2">
@@ -198,8 +262,13 @@ function FormCustomer() {
                                     className="form-label"
                                     for="phoneNumber"
                                   >
-                                    Phone Number
+                                    Số điện thoại
                                   </label>
+                                  <ErrorMessage
+                                    component={"p"}
+                                    name="phoneNumber"
+                                    className="error"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -215,7 +284,7 @@ function FormCustomer() {
                                     className="form-control form-control-lg fs-16"
                                   />
                                   <label className="form-label" for="address">
-                                    Address
+                                    Địa chỉ
                                   </label>
                                 </div>
                               </div>
