@@ -1,19 +1,27 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../Common/Footer/Footer";
 import Header from "../Common/Header/Header";
 import "./FormCustomer.css";
 import { useEffect, useState } from "react";
-import { findByIdCustomer } from "../../services/customerService";
+import {
+  addNewCustomer,
+  findByIdCustomer,
+  updateCustomer,
+} from "../../services/customerService";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Skeleton from "react-loading-skeleton";
 import { HashLoader } from "react-spinners";
 import * as Yup from "yup";
+import { findAllTypeCustomer } from "../../services/typeCustomerService";
+import { ToastContainer, toast } from "react-toastify";
 function FormCustomer() {
   const { id } = useParams();
   const [customer, setCustomer] = useState(null);
+  const [typeCustomer, setTypeCustomer] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const REGEX = {
-    NAME: /^([A-Z][a-z]*(\s[A-Z][a-z]*)*)$/,
+    NAME: /^([A-Z_ÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ][a-z_àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹý]*(\s[A-Z_ÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ][a-z_àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹý]*)*)$/,
     PHONE_NUMBER: /^(090|091|(84)+90|(84)+91)[0-9]{7}$/,
     CMND: /^[0-9]{9}$|^[0-9]{12}$/,
     EMAIL: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
@@ -27,18 +35,19 @@ function FormCustomer() {
         return;
       }
       const result = await findByIdCustomer(id);
+      console.log(result);
       await setTimeout(() => {
         setCustomer(result);
       }, 1500);
     };
+    const fetchApiTypeCustomer = async () => {
+      const result = await findAllTypeCustomer();
+      setTypeCustomer(result);
+    };
     fetchApiCustomerById();
+    fetchApiTypeCustomer();
   }, []);
-  const handleSubmit = async () => {
-    await setLoading(true);
-    await setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  };
+  console.log(customer);
   return (
     <div>
       <Header />
@@ -61,7 +70,7 @@ function FormCustomer() {
                   ) : (
                     <div className="card-body p-4 p-md-5">
                       <h3 className="title mb-4 pb-2 pb-md-0 mb-md-5">
-                        Thêm mới khách hàng
+                        {id ? "Chỉnh sửa khách hàng" : "Thêm mới khách hàng"}
                       </h3>
                       {loading ? (
                         <div className="d-flex justify-content-center align-items-center flex-column">
@@ -109,6 +118,9 @@ function FormCustomer() {
                                 REGEX.CMND,
                                 "Số CMND bắt buộc 9 số hoặc 12 số."
                               ),
+                            dateOfBirth: Yup.string().required(
+                              "Ngày sinh bắt buộc nhập"
+                            ),
                             email: Yup.string()
                               .required("Email bắt buộc nhập.")
                               .matches(
@@ -116,6 +128,32 @@ function FormCustomer() {
                                 "Email nhập không đúng định dạng."
                               ),
                           })}
+                          onSubmit={async (values) => {
+                            values.typeCustomer = {
+                              id: values.typeCustomer.id,
+                            };
+                            console.log(values);
+                            if (values.id) {
+                              await updateCustomer(values);
+                            } else {
+                              await addNewCustomer(values);
+                            }
+                            await setLoading(true);
+                            await setTimeout(() => {
+                              setLoading(false);
+                              {
+                                values.id
+                                  ? toast(
+                                      "Thêm mới " + values.name + " thành công."
+                                    )
+                                  : toast(
+                                      "Chỉnh sửa " +
+                                        values.name +
+                                        " thành công."
+                                    );
+                              }
+                            }, 1500);
+                          }}
                         >
                           <Form>
                             <div className="row">
@@ -140,7 +178,6 @@ function FormCustomer() {
                                     type="text"
                                     id="lastName"
                                     name="identity"
-                                    required
                                     className="form-control form-control-lg fs-16"
                                   />
                                   <label className="form-label" for="lastName">
@@ -163,7 +200,6 @@ function FormCustomer() {
                                     name="dateOfBirth"
                                     className="form-control form-control-lg fs-16"
                                     id="birthdayDate"
-                                    required
                                   />
                                   <label
                                     for="birthdayDate"
@@ -171,6 +207,11 @@ function FormCustomer() {
                                   >
                                     Ngày sinh
                                   </label>
+                                  <ErrorMessage
+                                    className="error"
+                                    component={"p"}
+                                    name="dateOfBirth"
+                                  />
                                 </div>
                               </div>
                               <div className="col-md-6 mb-4">
@@ -183,6 +224,7 @@ function FormCustomer() {
                                     name="gender"
                                     id="femaleGender"
                                     value="Nữ"
+                                    checked
                                   />
                                   <label
                                     className="form-check-label"
@@ -233,7 +275,6 @@ function FormCustomer() {
                                     type="email"
                                     id="emailAddress"
                                     name="email"
-                                    required
                                     className="form-control form-control-lg fs-16"
                                   />
                                   <label
@@ -255,7 +296,6 @@ function FormCustomer() {
                                     type="tel"
                                     id="phoneNumber"
                                     name="phoneNumber"
-                                    required
                                     className="form-control form-control-lg fs-16"
                                   />
                                   <label
@@ -280,7 +320,6 @@ function FormCustomer() {
                                     type="text"
                                     id="address"
                                     name="address"
-                                    required
                                     className="form-control form-control-lg fs-16"
                                   />
                                   <label className="form-label" for="address">
@@ -291,17 +330,21 @@ function FormCustomer() {
                               <div className="col-md-6 mb-4 pb-2">
                                 <Field
                                   as="select"
-                                  name="typeCustomer"
+                                  name="typeCustomer.id"
                                   className="select form-control-lg fs-16"
                                   style={{
                                     border: "border: 1px solid #ced4da;",
                                   }}
                                 >
-                                  <option value={1}>Diamond</option>
-                                  <option value={2}>Platinum</option>
-                                  <option value={3}>Gold</option>
-                                  <option value={4}>Silver</option>
-                                  <option value={5}>Member</option>
+                                  <option>---Chọn loại khách---</option>
+                                  {typeCustomer &&
+                                    typeCustomer.map((type) => {
+                                      return (
+                                        <option value={type.id}>
+                                          {type.name}
+                                        </option>
+                                      );
+                                    })}
                                 </Field>
                                 <label className="form-label select-label">
                                   Loại khách
@@ -314,7 +357,6 @@ function FormCustomer() {
                                 className="submit-form btn btn-primary btn-lg flex-grow-1"
                                 type="submit"
                                 value="Submit"
-                                onClick={handleSubmit}
                               />
                             </div>
                           </Form>
@@ -329,6 +371,19 @@ function FormCustomer() {
         </section>
       </div>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        toastStyle={{ backgroundColor: "#3E5FA7", color: "#fff" }}
+      />
     </div>
   );
 }

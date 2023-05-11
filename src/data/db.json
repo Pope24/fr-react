@@ -1,5 +1,5 @@
 {
-"facilities": [
+  "facilities": [
     {
       "id": 1,
       "img": "https://furamavietnam.com/wp-content/uploads/2018/03/Vietnam_Danang_Furama_Ocean-Suite-Feature-370x239.jpg",
@@ -164,17 +164,6 @@
       "address": "Quảng Nam"
     },
     {
-      "name": "Nguyễn Lê Văn Khải",
-      "dateOfBirth": "1998-03-26",
-      "gender": "Nam",
-      "identity": "201865381",
-      "phoneNumber": "0905559541",
-      "email": "vankhai14@gmail.com",
-      "address": "Đà Nẵng",
-      "typeCustomer": 1,
-      "id": 5
-    },
-    {
       "name": "Nguyễn Hà Anh Quốc",
       "dateOfBirth": "1998-09-16",
       "gender": "Nam",
@@ -206,6 +195,28 @@
       "address": "Đà Nẵng",
       "typeCustomer": 1,
       "id": 8
+    },
+    {
+      "name": "Le Van Phat Dat",
+      "dateOfBirth": "2023-05-20",
+      "gender": "Nam",
+      "identity": "541551510",
+      "phoneNumber": "0909101112",
+      "email": "phatdat15@gmail.com",
+      "address": "Quảng Bình",
+      "id": 12,
+      "typeCustomer": 5
+    },
+    {
+      "name": "Phan Van Minh",
+      "dateOfBirth": "2023-12-31",
+      "gender": "Nam",
+      "identity": "215151515151",
+      "phoneNumber": "0915412406",
+      "email": "chinhvan2422003@fpt.edu.vn",
+      "address": "Dien Ban",
+      "id": 15,
+      "typeCustomer": "2"
     }
   ],
   "typeCustomer": [
