@@ -1,8 +1,14 @@
 import axios from "axios";
-const CUSTOMER_API = "http://localhost:8080/api-customer/";
-export const findAllCustomers = async () => {
+const CUSTOMER_API = "http://localhost:3000/customer/";
+export const findAllCustomers = async (page) => {
   try {
-    const result = await axios.get(CUSTOMER_API);
+    let result;
+    if (!isNaN(page)) {
+      console.log(CUSTOMER_API + "?" + page);
+      result = await axios.get(CUSTOMER_API + "?_page=" + page + "&_limit=3");
+    } else {
+      result = await axios.get(CUSTOMER_API + "?" + page);
+    }
     return result.data;
   } catch (error) {
     console.log(error);

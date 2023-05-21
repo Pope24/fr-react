@@ -22,13 +22,20 @@ function ListCustomer() {
   const [customerList, setCustomerList] = useState(null);
   const [typeCustomers, setTypeCustomers] = useState(null);
   const [customerDeleted, setCustomerDeleted] = useState(null);
+  const [currPage, setCurrPage] = useState(1);
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const fetchApiCustomers = async () => {
-    const result = await findAllCustomers();
+  const [arrayPages, setArrayPages] = useState(null);
+  const fetchApiCustomers = async (page) => {
+    const result = await findAllCustomers(page);
     setCustomerList(result);
+    // setCurrPage(page);
+    const totalPages = new Array(Math.ceil(9 / 3))
+      .fill(undefined)
+      .map((val, idx) => idx);
+    setArrayPages(totalPages);
   };
   const fetchApiTypeCustomer = async () => {
     const result = await findAllTypeCustomer();
@@ -39,7 +46,7 @@ function ListCustomer() {
     setCustomerList(result);
   };
   useEffect(() => {
-    fetchApiCustomers();
+    fetchApiCustomers(1);
     fetchApiTypeCustomer();
   }, []);
   const handleDelete = async (id) => {
@@ -66,7 +73,23 @@ function ListCustomer() {
               </Link>
               <div className="d-flex justify-content-between align-items-center">
                 <select
-                  className="btn btn-secondary"
+                  className="btn btn-dark"
+                  onChange={(e) => {
+                    fetchApiCustomers(e.target.value);
+                  }}
+                >
+                  <option value="_order=asc" selected>
+                    Sắp xếp
+                  </option>
+                  <option value="_order=desc">Ngày tạo</option>
+                  <option value="_sort=name&_order=asc">Tên</option>
+                  <option value="_sort=dateOfBirth&_order=asc">
+                    Ngày sinh
+                  </option>
+                  <option value="_sort=address&_order=asc">Địa chỉ</option>
+                </select>
+                <select
+                  className="btn btn-secondary ms-3"
                   onChange={(e) => {
                     e.target.value === 0
                       ? fetchApiCustomers()
@@ -166,21 +189,24 @@ function ListCustomer() {
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
-                  <li className="page-item">
-                    <a className="page-link text-dark" href="#">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link text-dark" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link text-dark" href="#">
-                      3
-                    </a>
-                  </li>
+                  {arrayPages &&
+                    arrayPages.map((page, index) => {
+                      return (
+                        <li className="page-item">
+                          <button
+                            className={
+                              currPage != page + 1
+                                ? "page-link text-dark"
+                                : "page-link text-dark active"
+                            }
+                            href="#"
+                            onClick={() => fetchApiCustomers(page + 1)}
+                          >
+                            {page + 1}
+                          </button>
+                        </li>
+                      );
+                    })}
                   <li className="page-item">
                     <a className="page-link text-dark" href="#">
                       <span aria-hidden="true">&raquo;</span>
